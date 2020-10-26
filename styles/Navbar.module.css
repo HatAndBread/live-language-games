@@ -1,0 +1,75 @@
+.Nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  width: 100vw;
+  top: 0px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  background-color: #42bfdd;
+  color: #f0f6f6;
+}
+
+.Links {
+  display: flex;
+  list-style: none;
+  background-color: #42bfdd;
+}
+
+.Links li {
+  margin-right: 16px;
+}
+
+.VeganBurger {
+  display: none;
+  width: 30px;
+  margin: 16px;
+}
+.VeganBurger:hover {
+  cursor: pointer;
+}
+.slice {
+  background-color: #f0f6f6;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+}
+
+.slice_two {
+  background-color: #f0f6f6;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+}
+
+.slice_three {
+  background-color: #f0f6f6;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 700px) {
+  .VeganBurger {
+    display: inline-block;
+  }
+  .Links {
+    position: fixed;
+    top: 0px;
+    right: -100vw;
+    flex-direction: column;
+    z-index: -1;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    border-bottom-left-radius: 10px;
+    transition: right 1s;
+  }
+  .Links li {
+    margin-bottom: 10px;
+  }
+}

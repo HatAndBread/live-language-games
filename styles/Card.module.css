@@ -1,0 +1,20 @@
+.CardContainer {
+  background-color: #ff66b3;
+  color: snow;
+  width: 20vw;
+  min-width: 200px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  user-select: none;
+  box-shadow: 10px 5px 5px #084b83;
+  height: 260px;
+}
+
+.CardContainer h1 {
+  text-align: center;
+}
+
+.CardContainer:hover {
+  cursor: pointer;
+}

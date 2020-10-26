@@ -1,38 +1,26 @@
-import { useUser } from '../lib/hooks'
-import Layout from '../components/layout'
+import { useUser } from '../lib/hooks';
+import Layout from '../components/Layout';
+import Card from '../components/Card';
+import styles from '../styles/Home.module.css';
+import gameDescriptions from '../logic/GameDescriptions';
 
 const Home = () => {
-  const user = useUser()
+  const user = useUser();
+  const games = gameDescriptions.map((game) => {
+    return <Card key={game.title} title={game.title} description={game.description} img={game.img} link={game.link} />;
+  });
 
   return (
     <Layout>
-      <h1>Magic Example</h1>
-
-      <p>Steps to test this authentication example:</p>
-
-      <ol>
-        <li>Click Login and enter an email.</li>
-        <li>
-          You'll be redirected to Home. Click on Profile, notice how your
-          session is being used through a token stored in a cookie.
-        </li>
-        <li>
-          Click Logout and try to go to Profile again. You'll get redirected to
-          Login.
-        </li>
-      </ol>
-
-      <p>
-        To learn more about Magic, visit their{' '}
-        <a
-          href="https://docs.magic.link/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          documentation
-        </a>
-        .
-      </p>
+      <main className={styles.main}>
+        <div>Welcome to Live Language Games!</div>
+        <div className={styles.cardContainer}>
+          <ul className={styles.cardsList}>{games}</ul>
+        </div>
+      </main>
+      <footer className={styles.footer}>
+        <img src="/fb.png" width="50px"></img>
+      </footer>
 
       {user && (
         <>
@@ -40,14 +28,8 @@ const Home = () => {
           <pre>{JSON.stringify(user, null, 2)}</pre>
         </>
       )}
-
-      <style jsx>{`
-        li {
-          margin-bottom: 0.5rem;
-        }
-      `}</style>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
