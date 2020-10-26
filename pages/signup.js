@@ -16,8 +16,12 @@ const Login = () => {
 
     if (errorMsg) setErrorMsg('');
 
+    console.log(e.currentTarget.email.value);
+    console.log(e.currentTarget.username.value);
+
     const body = {
-      email: e.currentTarget.email.value
+      email: e.currentTarget.email.value,
+      username: e.currentTarget.username.value
     };
 
     try {
@@ -47,7 +51,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="login">
-        <Form login={true} errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <Form login={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
     </Layout>
   );

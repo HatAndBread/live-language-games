@@ -33,29 +33,27 @@ function Navbar() {
     }
   };
   return (
-    <div>
-      <nav className={styles.Nav}>
-        <ul className={styles.Links} ref={linksRef}>
+    <nav className={styles.Nav}>
+      <ul className={styles.Links} ref={linksRef}>
+        <li>
+          <Link href="/">🏠Home</Link>
+        </li>
+        <li>
+          <Link href="/about">❓About</Link>
+        </li>
+        <li>{user ? <Link href="/api/logout">👋Logout</Link> : <Link href="/login">🔑Login</Link>}</li>
+        {!user && (
           <li>
-            <Link href="/">🏠Home</Link>
+            <Link href="/signup">✏️Signup</Link>
           </li>
-          <li>
-            <Link href="/about">❓About</Link>
-          </li>
-          <li>{user ? <Link href="/api/logout">👋Logout</Link> : <Link href="/login">🔑Login</Link>}</li>
-          {!user && (
-            <li>
-              <Link href="/login">✏️Signup</Link>
-            </li>
-          )}
-        </ul>
-        <div className={styles.VeganBurger} ref={burgerRef} onClick={hamburgerClick}>
-          <div className={styles.slice}></div>
-          <div className={styles.slice_two}></div>
-          <div className={styles.slice_three}></div>
-        </div>
-      </nav>
-    </div>
+        )}
+      </ul>
+      <div className={styles.VeganBurger} ref={burgerRef} onClick={hamburgerClick}>
+        <div className={styles.slice}></div>
+        <div className={styles.slice_two}></div>
+        <div className={styles.slice_three}></div>
+      </div>
+    </nav>
   );
 }
 

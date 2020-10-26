@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Navbar from './Navbar';
+import styles from '../styles/Layout.module.css';
 
 function Layout({ children, user }) {
   return (
@@ -10,7 +11,7 @@ function Layout({ children, user }) {
       </Head>
       <Navbar />
       <div>{user}</div>
-      <div>{children}</div>
+      <div className={styles.LayoutMain}>{children}</div>
     </div>
   );
 }

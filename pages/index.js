@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <main className={styles.main}>
+      <main>
         <div>Welcome to Live Language Games!</div>
         <div className={styles.cardContainer}>
           <ul className={styles.cardsList}>{games}</ul>
