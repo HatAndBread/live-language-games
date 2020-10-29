@@ -1,5 +1,5 @@
 const gameDescriptions = [
-  { title: 'Long words', description: 'Make the longest word that you can.', img: '', link: '/longest-word' },
+  { title: 'The Longest word', description: 'Make the longest word that you can.', img: '', link: '/longest-word' },
   {
     title: 'Karuta',
     description: 'A traditional Japanese card game. Be the fastest to grab the right card!',

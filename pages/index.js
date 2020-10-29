@@ -6,6 +6,7 @@ import gameDescriptions from '../logic/GameDescriptions';
 
 const Home = () => {
   const user = useUser();
+  console.log(user);
   const games = gameDescriptions.map((game) => {
     return <Card key={game.title} title={game.title} description={game.description} img={game.img} link={game.link} />;
   });
@@ -18,16 +19,6 @@ const Home = () => {
           <ul className={styles.cardsList}>{games}</ul>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <img src="/fb.png" width="50px"></img>
-      </footer>
-
-      {user && (
-        <>
-          <p>Currently logged in as:</p>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
-        </>
-      )}
     </Layout>
   );
 };

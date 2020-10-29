@@ -12,6 +12,9 @@ function Layout({ children, user }) {
       <Navbar />
       <div>{user}</div>
       <div className={styles.LayoutMain}>{children}</div>
+      <footer className={styles.footer}>
+        <img src="/fb.png" width="50px"></img>
+      </footer>
     </div>
   );
 }
