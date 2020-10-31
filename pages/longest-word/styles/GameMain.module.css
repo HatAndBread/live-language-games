@@ -1,3 +1,10 @@
+.gameMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .letterSquares {
   display: flex;
   flex-direction: row;
@@ -7,4 +14,12 @@
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+}
+
+.Timer {
+  font-size: 84px;
+}
+
+.PointsDisplay {
+  font-size: 64px;
 }

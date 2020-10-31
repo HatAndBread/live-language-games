@@ -1,11 +1,24 @@
 function getLetters(howMany) {
   const lettersToReturn = [];
-  for (let i = 0; i < howMany; i++) {
-    lettersToReturn.push(letters[Math.floor(Math.random() * letters.length)]);
+  while (!containsVowels(lettersToReturn)) {
+    for (let i = 0; i < howMany; i++) {
+      lettersToReturn.push(letters[Math.floor(Math.random() * letters.length)]);
+    }
   }
   return lettersToReturn;
 }
 
+function containsVowels(arr) {
+  for (let i = 0; i < vowels.length; i++) {
+    if (arr.includes(vowels[i])) {
+      return true;
+    }
+  }
+  arr.splice(0, arr.length);
+  return false;
+}
+
+const vowels = ['A', 'E', 'I', 'O', 'U'];
 const letters = [
   'A',
   'B',

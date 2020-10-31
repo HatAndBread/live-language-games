@@ -1,7 +1,9 @@
 .LetterDepository {
-  width: 80vw;
-  height: 30vw;
-  background-color: black;
+  width: 50vw;
+  height: 150px;
+  text-align: center;
+  background-color: #000000;
+  font-size: 32px;
   color: snow;
   border-radius: 10px;
 }

@@ -1,4 +1,5 @@
 import styles from '../styles/LetterDepository.module.css';
+import { useState } from 'react';
 
 function LetterDepository({ setDroppedLetter, text }) {
   const dragOver = (e) => {
@@ -10,7 +11,7 @@ function LetterDepository({ setDroppedLetter, text }) {
   };
   return (
     <div className={styles.LetterDepository} onDragOver={dragOver} onDrop={onDrop}>
-      {text}
+      {text === '' ? 'Drag letters here' : text}
     </div>
   );
 }

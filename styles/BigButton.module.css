@@ -5,4 +5,7 @@
   font-size: x-large;
   padding: 10px;
   margin: 5px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
