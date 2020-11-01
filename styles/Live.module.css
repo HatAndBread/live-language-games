@@ -1,0 +1,9 @@
+.Live form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Live input {
+  font-size: x-large;
+  border-radius: 10px;
+}

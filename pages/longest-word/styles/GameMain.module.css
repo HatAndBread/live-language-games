@@ -23,3 +23,11 @@
 .PointsDisplay {
   font-size: 64px;
 }
+
+.DontShow {
+  display: none;
+}
+
+.Calculating {
+  font-size: 32px;
+}

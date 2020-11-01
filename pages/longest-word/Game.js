@@ -24,6 +24,7 @@ const reducer = (state, action) => {
       return newState;
     case 'roundStarted':
       newState.roundStarted = action.value;
+      newState.submitButtonVisible = true;
       return newState;
     case 'roundEnded':
       newState.afterRound = true;
@@ -34,8 +35,11 @@ const reducer = (state, action) => {
       newState.roundStarted = false;
       newState.afterRound = false;
       return newState;
+    case 'submitButtonInvisible':
+      newState.submitButtonVisible = false;
+      return newState;
     default:
-      return state;
+      return console.error(`No such action: ${action.type}`);
   }
 };
 
@@ -48,6 +52,7 @@ function Game({ mode }) {
     currentWord: '',
     roundStarted: false,
     afterRound: false,
+    submitButtonVisible: false,
     letters: getLetters(12)
   });
   const letterSquares = state.letters.map((el, index) => {
@@ -66,6 +71,7 @@ function Game({ mode }) {
   });
   const submitWord = async () => {
     EventEmitter.emit('stopTimer');
+    dispatch({ type: 'submitButtonInvisible' });
     let res = await fetch('/api/longest', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -80,50 +86,49 @@ function Game({ mode }) {
     }
     dispatch({ type: 'roundEnded', value: { data } });
   };
-  const resetNewRound = () => {};
+  EventEmitter.subscribe('timeUp', () => {
+    submitWord();
+  });
 
   return (
-    <div className={styles.gameMain}>
-      {!state.roundStarted && (
+    <div>
+      <div className={!state.roundStarted ? styles.gameMain : styles.DontShow}>
         <BigButton
           text={'START'}
           emoji={'✨'}
           handleClick={() => {
             dispatch({ type: 'roundStarted', value: true });
+            EventEmitter.emit('startTimer');
           }}
         />
-      )}
-      {state.roundStarted && !state.afterRound && (
-        <div className={styles.gameMain}>
-          <Timer timeLimit={timeLimit} setTime={setTime} />
-          <div className={styles.letterSquares}>{letterSquares}</div>
-          <LetterDepository
-            text={state.currentWord}
-            letterBeingDragged={state.letterBeingDragged}
-            setDroppedLetter={() => {
-              dispatch({ type: 'droppedLetter', value: state.letterBeingDragged });
-            }}
-          />
-          <BigButton text={'OK'} emoji={'👍'} handleClick={submitWord} />
+      </div>
+      <div className={state.roundStarted && !state.afterRound ? styles.gameMain : styles.DontShow}>
+        <Timer timeLimit={timeLimit} setTime={setTime} />
+        <div className={styles.letterSquares}>{letterSquares}</div>
+        <LetterDepository
+          text={state.currentWord}
+          letterBeingDragged={state.letterBeingDragged}
+          setDroppedLetter={() => {
+            dispatch({ type: 'droppedLetter', value: state.letterBeingDragged });
+          }}
+        />
+        {state.submitButtonVisible && <BigButton text={'OK'} emoji={'👍'} handleClick={submitWord} />}
+      </div>
+      <div className={state.roundStarted && state.afterRound ? styles.gameMain : styles.DontShow}>
+        <div className={styles.PointsDisplay}>
+          {points} points!
+          {points === 0 && '😥'}
+          {points >= 1000 && points < 9999 && '😃'}
+          {points >= 10000 && '🥳'}
         </div>
-      )}
-      {state.roundStarted && state.afterRound && (
-        <div className={styles.gameMain}>
-          <div className={styles.PointsDisplay}>
-            {points} points!
-            {points === 0 && '😥'}
-            {points >= 1000 && points < 9999 && '😃'}
-            {points >= 10000 && '🥳'}
-          </div>
-          <BigButton
-            text={'NEXT'}
-            emoji={'✨'}
-            handleClick={() => {
-              dispatch({ type: 'startNewRound' });
-            }}
-          />
-        </div>
-      )}
+        <BigButton
+          text={'NEXT'}
+          emoji={'✨'}
+          handleClick={() => {
+            dispatch({ type: 'startNewRound' });
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -4,10 +4,12 @@ import styles from '../styles/GameMain.module.css';
 
 function Timer({ timeLimit, setTime }) {
   const [timeElapsed, setTimeElapsed] = useState(0);
-  const [timerStopped, setTimerStopped] = useState(false);
+  const [showTimer, setShowTimer] = useState(true);
+  const [timerStopped, setTimerStopped] = useState(true);
   const timerStoppedRef = useRef(timerStopped);
   timerStoppedRef.current = timerStopped;
   const count = () => {
+    setTimeElapsed(0);
     let i = 1;
     const increaseTime = () => {
       if (i <= timeLimit && !timerStoppedRef.current) {
@@ -23,13 +25,38 @@ function Timer({ timeLimit, setTime }) {
     };
     increaseTime();
   };
+
+  useEffect(() => {
+    !timerStopped && count();
+    setTimeElapsed(0);
+  }, [timerStopped]);
+  useEffect(() => {
+    if (timeElapsed === timeLimit) {
+      setShowTimer(false);
+      setTimeElapsed(0);
+      setTimerStopped(true);
+      EventEmitter.emit('timeUp');
+    }
+  }, [timeElapsed]);
   EventEmitter.subscribe('stopTimer', () => {
+    setShowTimer(false);
+    setTimeElapsed(0);
     setTimerStopped(true);
   });
-  useEffect(() => {
+  EventEmitter.subscribe('startTimer', () => {
+    setShowTimer(true);
+    setTimerStopped(false);
     count();
-  }, []);
-  return <div className={styles.Timer}>{timeElapsed}</div>;
+  });
+  return (
+    <div>
+      {showTimer ? (
+        <div className={styles.Timer}>{timeElapsed}</div>
+      ) : (
+        <div className={styles.Calculating}>Calculating your score...</div>
+      )}
+    </div>
+  );
 }
 
 export default Timer;

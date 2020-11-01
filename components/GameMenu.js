@@ -22,6 +22,7 @@ function GameMenu({ title, setMode, setGameReady }) {
           <BigButton text="Host Game" emoji="👯‍♀️" handleClick={hostGameClick} />
         </div>
       )}
+      <div></div>
     </div>
   );
 }
