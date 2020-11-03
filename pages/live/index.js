@@ -8,11 +8,27 @@ function Live() {
   const [pinAccepted, setPinAccepted] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const submitPin = async (pin) => {
-    setPinAccepted(true);
-    console.log(`submitting ${pin}`);
+    const raw = await fetch('/api/livelogin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type: 'pin', pin: pin })
+    });
+    const response = await raw.json();
+    if (response.ok) {
+      setPinAccepted(true);
+    }
   };
   const submitName = async (e) => {
     e.preventDefault();
+    const raw = await fetch('/api/livelogin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'name', name: playerName })
+    });
+    const response = await raw.json();
+    console.log(response);
     console.log(`submitting ${playerName}`);
   };
   useEffect(() => {
@@ -24,7 +40,13 @@ function Live() {
         {!pinAccepted && <NumberPad submitPin={submitPin} />}
         {pinAccepted && (
           <form>
-            <input type="text" onInput={(e) => playerName.length < 25 && setPlayerName(e.target.value)} autoFocus />
+            <label htmlFor="playername">Nickname: </label>
+            <input
+              name="playername"
+              type="text"
+              onInput={(e) => playerName.length < 25 && setPlayerName(e.target.value)}
+              autoFocus
+            />
             <BigButton text="OK" emoji="✨" type="submit" handleClick={submitName} />
           </form>
         )}
